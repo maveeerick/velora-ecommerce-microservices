@@ -250,3 +250,108 @@ Project ini dibuat sebagai implementasi pembelajaran:
 * Event-Driven System
 
 ---
+## 🆕 Shipping Service
+
+### 📦 6️⃣ Shipping Service
+
+* Consume event `payment-processed`
+* Membuat data pengiriman (shipping)
+* Menyimpan ke database
+* Publish event `shipping-created`
+
+---
+
+## 🔁 Final Event Flow (Complete)
+
+```text
+Order Service 
+   ↓ (publish)
+order-created
+   ↓
+Payment Service 
+   ↓ (publish)
+payment-processed
+   ↓
+Shipping Service 
+   ↓ (publish)
+shipping-created
+   ↓
+Notification Service
+```
+
+---
+
+## 🧪 End-to-End Testing Result
+
+Berikut adalah hasil pengujian real:
+
+### ✅ Payment → Shipping (Log)
+
+```text
+PAYMENT RECEIVED: {"id":8,"orderId":10,"amount":1.5E7,"status":"PAID"}
+SHIPPING CREATED: Shipping(id=2, orderId=10, address=Default Address, status=SHIPPED)
+```
+
+---
+
+### ✅ Kafka Topic Output (`shipping-created`)
+
+```json
+{"id":2,"orderId":10,"address":"Default Address","status":"SHIPPED"}
+```
+
+---
+
+## 📨 Kafka Topics (Updated)
+
+* `order-created`
+* `payment-processed`
+* `shipping-created`
+
+---
+
+## 🧠 Architecture Pattern
+
+Project ini menggunakan:
+
+### 🔹 Choreography Pattern
+
+* Tidak ada orchestrator
+* Setiap service bereaksi terhadap event
+* Loose coupling antar service
+
+---
+
+## 📈 System Characteristics
+
+* Asynchronous communication
+* Scalable (mudah tambah service baru)
+* Decoupled architecture
+* Event-driven processing
+
+---
+
+## 🔮 Future Improvements (Extended)
+
+* Email / WhatsApp Notification
+* Real-time notification (WebSocket)
+* Dead Letter Queue (DLQ)
+* Retry mechanism
+* API Gateway
+* Service Discovery (Eureka)
+* Dockerization
+* Centralized Logging
+* Monitoring (Prometheus + Grafana)
+
+---
+
+## ✅ Final Status
+
+✔ Auth Service
+✔ Product Service
+✔ Order Service
+✔ Payment Service
+✔ Shipping Service
+✔ Notification Service
+
+🔥 **FULL EVENT-DRIVEN MICROSERVICES SYSTEM WORKING**
